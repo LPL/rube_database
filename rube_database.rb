@@ -10,39 +10,57 @@ def giveOptions
 	choice
 end
 
-refer = Hash.new # this'll convert the names of fields (strings) into intergers that refer to arrays (of each entry's value for that field)
-cycleThrough = false # should we check to see if any of those intergers are unused (due to field deletion) or just use new one?
-assEnd = 0 # this is what "a new one" would be--the value at the ass end of the chain of integers
-choice = 0 # global variable for giveOptions and main while statement at end
+# to do:
+# 	data entry:
+#		by field (+ optional while creating field)
+#		by entry (+ optional while creating field)
+#	report:
+#		fields
+#		entries
+#		values by field or entry (or all?)
+#	search:
+#		by fields
+#		by entry
+#		all
+		
+data = Hash.new # the data will be kept as a hash with field names for keys and arrays for values
+data[entnum5w9n9f] = [] # protected array (i.e. field) which stores entry IDs
+choice = 0 # global variable for giveOptions and main while statement
 
 def newField
-	puts 'enter new field name'
+	puts 'Enter new field name:'
 	newFieldName = gets.chomp
-	if (refer.key? newFieldName == true)
-		puts 'The field cannot be created, as a field with this name already exists'
-	elsif (cycleThough == false)
-		refer[newFieldName] = assEnd
-		assEnd = assEnd + 1
-	elsif (cycleThrough == true)
-		cycler = 0
-		while cycler < assEnd
-			if (refer.value? cycler == false)
-				refer[newFieldName] = cycler
-				cycler = assEnd
-			else
-				cycler = cycler + 1
-			end	
-		end
-	end
-	if (refer.key? newFieldName == true)
-		puts 'Field ' + newFieldName + ' created.'
+	if (data.key? newFieldName == true)
+		puts 'The field cannot be created, as a field with this name already exists.'
+	elsif (newFieldName == 'entnum5w9n9f')
+		puts 'That is the only name fields are not allowed to have.'
+	else
+		data[newFieldName] = []
+		puts 'Field \"' + newFieldName + '\" created.'
 	end
 end
 
 def deleteField
-	puts 'Enter name of field to delete'
+	puts 'Enter name of field to delete:'
 	doomedField = gets.chomp
+	if data[doomedField].key? == false
+		puts 'No such field.'
+	elsif (doomedField = 'entnum5w9n9f')
+		puts 'No such field. Not that you need to know about, anyway.'
+	else
+		data.delete (doomedField)
+		puts 'Field \"' + doomedField + '\" deleted.'
+	end
+end
+
+def newEntry
+	puts 'enter entry name'
+	newEntry = gets.chomp
 	
+end
+
+def deleteEntry
+
 end
 
 while (choice != 8)
